@@ -31,7 +31,7 @@ while read playlist; do
 	echo "Generating $playlist...";
 	list=$(find "$playlist" -maxdepth 1 -type f -iname "*.mp3" -printf "%f\n")
 	echo "$list" > "${playlist}/${playlist}.m3u8"
-	echo "${playlist}/$playlist.m3u generated!"
+	echo "${playlist}/$playlist.m3u8 generated!"
 	echo
 done <<< "$playlists"
 
