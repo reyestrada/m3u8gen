@@ -9,7 +9,7 @@
 # if not directory provided, script will be executed in current path
 # This will read all folders 
 # and will generate a playlist per folder
-# Playlists will be placed in Playlists folder
+# Playlists will be placed inside every folder
 # Playlist names will be the same as playlist folder
 # Recommendation: keep names and folders short
 
@@ -22,16 +22,6 @@ fi
 
 echo
 
-if [ -d Playlists ]
-then 
-	echo "Playlists directory exist"
-	echo
-else
-	echo "Playlists directory does not exist, creating it..."
-	mkdir Playlists
-	echo
-fi
-
 # find . -maxdepth 1 -type f -printf "%f\n"
 # find . -maxdepth 1 -type d -printf "%f\n"
 
@@ -39,9 +29,9 @@ playlists=$(find . -maxdepth 1 -type d -printf "%f\n" | grep -v Playlists | grep
 
 while read playlist; do 
 	echo "Generating $playlist...";
-	list=$(find "$playlist" -maxdepth 1 -type f -iname "*.mp3" -printf "../${playlist}/%f\n")
-	echo "$list" > "Playlists/${playlist}.m3u8"
-	echo "Playlists/$playlist.m3u8 generated!"
+	list=$(find "$playlist" -maxdepth 1 -type f -iname "*.mp3" -printf "%f\n")
+	echo "$list" > "${playlist}/${playlist}.m3u8"
+	echo "${playlist}/$playlist.m3u generated!"
 	echo
 done <<< "$playlists"
 
