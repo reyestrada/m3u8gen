@@ -26,7 +26,7 @@ echo
 # find . -maxdepth 1 -type d -printf "%f\n"
 
 #playlists=$(find . -maxdepth 1 -type d -printf "%f\n" | grep -v Playlists | grep -v ^\.$)
-directories=$(find . -maxdepth 3 -type d | sed 's/\.\///g')
+directories=$(find . -mindepth 2 -maxdepth 2 -type d | sed 's/\.\///g')
 
 while read directory; do 
 	playlist=$(find "$directory" -maxdepth 1 -type d -printf "%f" | tr " " "_")
