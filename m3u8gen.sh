@@ -31,7 +31,7 @@ directories=$(find . -mindepth 2 -maxdepth 2 -type d | sed 's/\.\///g')
 while read directory; do 
 	playlist=$(find "$directory" -maxdepth 1 -type d -printf "%f" | tr " " "_")
 	echo "Generating $playlist...";
-	list=$(find "$directory" -maxdepth 1 -type f -iname "*.mp3")
+	list=$(find "$directory" -maxdepth 1 -type f -iname "*.mp3" | tr '/' '\')
 	echo "$list" > "${playlist}.m3u8"
 	echo "${playlist}.m3u8 generated!"
 	echo
