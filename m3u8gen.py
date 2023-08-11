@@ -49,10 +49,23 @@ print(subMusicDir)
 # print(lspwd2)
 # print(lspwd3)
 
+playlistsPath = os.path.join(musicDir, "playlists")
+if not os.path.exists(playlistsPath):
+    print(f"Creating a directory -- {playlistsPath}")
+    os.mkdir(os.path.join(musicDir, "playlists"))
+else:
+    print(f"{playlistsPath} already exist")
+
+
+
 
 for root, dirs, files in os.walk(musicDir, topdown=True):
     print(f"root: {root} \ndirs: {dirs} \nfiles: {files}")
-    
+    # print(f"Filename:" + os.path.join(root, files))
+
+    for file in files:
+        print("File: " + os.path.join(root, file))
+
 
 
 
