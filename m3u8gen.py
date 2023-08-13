@@ -13,7 +13,7 @@
 # Playlist names will be the same as playlist folder
 # Recommendation: keep names and folders short
 
-import os, sys, string
+import os, sys, string, re
 # userInput = sys.argv[1] # first argument of command line, same as $1 in shell
 # print(userInput)
 
@@ -51,20 +51,39 @@ print(subMusicDir)
 
 playlistsPath = os.path.join(musicDir, "playlists")
 if not os.path.exists(playlistsPath):
-    print(f"Creating a directory -- {playlistsPath}")
+    print(f"Creating a directory -- {playlistsPath}\n")
     os.mkdir(os.path.join(musicDir, "playlists"))
 else:
-    print(f"{playlistsPath} already exist")
+    print(f"{playlistsPath} already exist\n")
 
 
 
-
-for root, dirs, files in os.walk(musicDir, topdown=True):
-    print(f"root: {root} \ndirs: {dirs} \nfiles: {files}")
+depth = 1
+for root, dirs, files in os.walk(musicDir, topdown=True, onerror=None, followlinks=False):
+    print(f"root: {root} \ndirs: {dirs} \nfiles: {files}\n\n")
     # print(f"Filename:" + os.path.join(root, files))
+    # print(f"lenght of musicDir var: {len(musicDir)}")
+    # print(f"root.count(): {root.count(os.sep)}")
+    playlistName = root
+    print(f"before playlistName: {playlistName}")
+    playlistName = re.sub(" ", "_", playlistName)
+    playlistName = re.sub("/", "-", playlistName)
+    playlistName = re.sub("^\.||\.", "", playlistName)
+    playlistName = re.sub("^-", "", playlistName)
+    playlistName = f"{playlistName}.m3u8"
+    # playlistName = playlistName.replace("/", "-")
+    # playlistName = playlistName.replace("", "")
+    print(f"after playlistName: {playlistName}")
 
     for file in files:
-        print("File: " + os.path.join(root, file))
+        filepath = f"../{root}/{file}"
+        print(filepath)
+        print(os.path.join(filepath))
+
+
+
+    # for file in files:
+    #     print("File: " + os.path.join(root, file))
 
 
 
