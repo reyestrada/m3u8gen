@@ -11,9 +11,13 @@
 import os
 
 filelist = list(filter(os.path.isfile, os.listdir(os.getcwd())))
-filelist.remove("playlist.m3u8")
+playlistName = os.path.basename(os.getcwd()) + ".m3u8"
+
+if playlistName in filelist:
+    filelist.remove(playlistName)
+
 playlist = '\n'.join(filelist) + "\n"
 
-f = open("playlist.m3u8", "w", encoding='utf-8')
+f = open(playlistName, "w", encoding='utf-8')
 f.write(f"{playlist}")
 f.close()
